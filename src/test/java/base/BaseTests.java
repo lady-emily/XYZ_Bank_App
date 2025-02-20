@@ -10,7 +10,7 @@ import pages.HomePage;
 public class BaseTests {
 
     private WebDriver driver;
-    protected HomePage homepage;
+    protected HomePage homePage;
     protected CustomerAuthenticationPage customerAuthenticationPage;
 
     @BeforeClass
@@ -23,7 +23,7 @@ public class BaseTests {
         driver.manage().window().maximize();
         System.out.println(driver.getTitle());
 
-        homepage = new HomePage(driver);
+        homePage = new HomePage(driver);
         customerAuthenticationPage = new CustomerAuthenticationPage(driver);
     }
 
