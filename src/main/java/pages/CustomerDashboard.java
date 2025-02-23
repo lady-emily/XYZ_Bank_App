@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -27,7 +28,7 @@ public class CustomerDashboard {
     // Navigate to Transaction Page
     public TransactionPage clickTransactions() {
         driver.findElement(transactionsButton).click();
-        return new TransactionPage(driver);
+        return new TransactionPage(driver);  // Ensure it returns a valid object
     }
 
     // Click Deposit Button

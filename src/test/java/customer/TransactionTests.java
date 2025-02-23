@@ -9,31 +9,9 @@ import pages.WithdrawPage;
 
 public class TransactionTests extends BaseTests {
 
-    @Test
-    public void testSuccessfulDeposit() {
-        CustomerDashboard customerDashboard = homePage.clickCustomerLogin()
-                .selectCustomerName("Harry Potter")  // Now correctly chains
-                .clickLoginButton();
 
-        DepositPage depositPage = customerDashboard.clickDeposit();
-        depositPage.enterAmount("500");
-        depositPage.clickDepositButton();
 
-        Assert.assertTrue(depositPage.isDepositSuccessful(), "Deposit was not successful!");
-    }
 
-    @Test
-    public void testSuccessfulWithdrawal() {
-        CustomerDashboard customerDashboard = homePage.clickCustomerLogin()
-                .selectCustomerName("Harry Potter")
-                .clickLoginButton();
-
-        WithdrawPage withdrawPage = customerDashboard.clickWithdraw();
-        withdrawPage.enterAmount("200");
-        withdrawPage.clickWithdrawButton();
-
-        Assert.assertTrue(withdrawPage.isWithdrawalSuccessful(), "Withdrawal failed!");
-    }
 
     @Test
     public void testInsufficientBalance() {

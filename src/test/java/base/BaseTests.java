@@ -12,12 +12,16 @@ import java.time.Duration;
 
 public class BaseTests {
     //fields
-    private WebDriver driver;
+    protected WebDriver driver;
     protected HomePage homePage;
     protected AddCustomerPage addCustomerPage;
     protected OpenAccountPage openAccountPage;
     protected CustomersPage customersPage;
-
+    protected CustomerDashboard customerDashboard;
+    protected DepositPage depositPage;
+    protected WithdrawPage withdrawPage;
+    protected TransactionPage transactionPage;
+    protected BankManagerPage bankManagerPage;
     protected CustomerAuthenticationPage customerAuthenticationPage;
 
     @BeforeClass

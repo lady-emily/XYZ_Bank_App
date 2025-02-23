@@ -13,6 +13,8 @@ public class BankManagerPage {
     private By openAccountButton = By.xpath("//button[contains(text(),'Open Account')]");
     private By customersButton = By.xpath("//button[contains(text(),'Customers')]");
 
+
+    //constructor
     public BankManagerPage(WebDriver driver) {
         this.driver = driver;
     }

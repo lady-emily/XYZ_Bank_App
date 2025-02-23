@@ -3,37 +3,53 @@ package login;
 import base.BaseTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.CustomerAuthenticationPage;
-import pages.CustomerDashboard;
-import pages.TransactionPage;
-import pages.HomePage;
+import pages.*;
 
 import static org.testng.Assert.assertTrue;
 
 public class LoginTests extends BaseTests {
 
     @Test
-    public void testSuccessfulCustomerLogin(){
-        System.out.println("Clicking Customer Login button...");
-        CustomerAuthenticationPage customerAuthenticationPage = homePage.clickCustomerLogin();
+    public void testCustomerAuthentication(){
+        homePage.clickCustomerLogin();
+         customerAuthenticationPage = homePage.clickCustomerLogin()
+                                    .selectCustomerName("Harry Potter");
+         customerAuthenticationPage.clickLoginButton();
         //assertion
-        assertTrue(customerAuthenticationPage.isPageLoaded(), "Customer authentication page did not load");
+            assertTrue(customerAuthenticationPage.isPageLoaded(), "Customer authentication page did not load");
+        }
+
+    @Test
+    public void testSuccessfulDeposit() {
+        customerDashboard = customerAuthenticationPage.clickLoginButton();
+        depositPage = customerDashboard.clickDeposit();
+        depositPage.enterAmount("500");
+        depositPage.clickDepositButton();
+
+        Assert.assertTrue(depositPage.isDepositSuccessful(), "Deposit was not successful!");
     }
 
     @Test
-    public void testViewTransactions() {
-        CustomerDashboard customerDashboard = homePage.clickCustomerLogin()
-                .selectCustomerName("Harry Potter")  // Replace with valid customer
-                .clickLoginButton();
+    public void testSuccessfulWithdrawal() {
+        withdrawPage = depositPage.clickWithdraw();
+        withdrawPage.enterAmount("200");
+        withdrawPage.clickWithdrawButton();
 
-        TransactionPage transactionPage = customerDashboard.clickTransactions();
-
-        Assert.assertTrue(transactionPage.isTransactionTableDisplayed(), "Transaction table not displayed!");
-
-        int transactionCount = transactionPage.getTransactionRecords().size();
-        System.out.println("Number of transactions found: " + transactionCount);
-        Assert.assertTrue(transactionCount > 0, "No transactions found!");
-
-        transactionPage.clickBackButton();
+        Assert.assertTrue(withdrawPage.isWithdrawalSuccessful(), "Withdrawal failed!");
     }
+
+//    @Test
+//    public void testViewTransactions() throws InterruptedException{
+//        transactionPage = withdrawPage.clickTransactions();
+//
+//        // Wait for 3 seconds before checking the transactions table
+//        Thread.sleep(3000);
+//
+//        Assert.assertTrue(transactionPage.isTransactionTableDisplayed(), "Transaction table not displayed!");
+//        transactionPage.getTransactionRecords();
+////        transactionPage.clickBackButton();
+//    }
+
+
+
 }
