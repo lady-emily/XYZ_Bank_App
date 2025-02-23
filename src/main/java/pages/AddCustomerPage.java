@@ -7,13 +7,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class AddCustomerPage {
-    //fields
     private WebDriver driver;
     private WebDriverWait wait;
 
+    // Locators using @FindBy
     @FindBy(xpath = "//input[@placeholder='First Name']")
     private WebElement firstNameField;
 
@@ -23,28 +24,79 @@ public class AddCustomerPage {
     @FindBy(xpath = "//input[@placeholder='Post Code']")
     private WebElement postCodeField;
 
-    @FindBy(xpath = "//button[contains(text(),'Add Customer')]")
+    @FindBy(xpath = "/html/body/div/div/div[2]/div/div[2]/div/div/form/button")
     private WebElement addCustomerButton;
 
-    //constructor
+    @FindBy(xpath = "//button[contains(text(),'Home')]")
+    private WebElement homeButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Open Account')]")
+    private WebElement openAccountButton;
+
+    @FindBy(xpath ="//button[contains(text(),'Customers')]")
+    private  WebElement customersButton;
+
+    // Constructor
     public AddCustomerPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15)); // ✅ Initialize WebDriverWait FIRST
-        PageFactory.initElements(driver, this); // ✅ Then initialize PageFactory elements
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // ✅ Ensure WebDriverWait is initialized
+        PageFactory.initElements(driver, this); // ✅ Initialize PageFactory elements
     }
 
+    /**
+     * Adds a customer by filling in the details and clicking the "Add Customer" button.
+     * Ensures inputs are valid and handles alert confirmation.
+     */
     public void addCustomer(String firstName, String lastName, String postCode) {
+        // Validate inputs
+        if (!firstName.matches("^[A-Za-z]+$")) {
+            throw new IllegalArgumentException("❌ Invalid First Name: Only alphabetic characters are allowed.");
+        }
+        if (!lastName.matches("^[A-Za-z]+$")) {
+            throw new IllegalArgumentException("❌ Invalid Last Name: Only alphabetic characters are allowed.");
+        }
+        if (!postCode.matches("^[0-9]+$")) {
+            throw new IllegalArgumentException("❌ Invalid Postcode: Only numeric characters are allowed.");
+        }
+
+        System.out.println("✅ Validation Passed. Proceeding with adding customer...");
+
+        // Wait for fields to be visible and input values
         wait.until(ExpectedConditions.visibilityOf(firstNameField)).sendKeys(firstName);
-        lastNameField.sendKeys(lastName);
-        postCodeField.sendKeys(postCode);
+        wait.until(ExpectedConditions.visibilityOf(lastNameField)).sendKeys(lastName);
+        wait.until(ExpectedConditions.visibilityOf(postCodeField)).sendKeys(postCode);
+
+        // Wait for button to be clickable and click
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(addCustomerButton)).click();
 
-        // 🔹 Extra wait to ensure alert appears before interacting with it
+        // Handle alert confirmation
         try {
-            WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(8));
+            WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(5));
             alertWait.until(ExpectedConditions.alertIsPresent()).accept();
+            System.out.println("✅ Alert handled successfully.");
         } catch (Exception e) {
             System.out.println("⚠️ No alert appeared after clicking 'Add Customer'. Check UI behavior.");
         }
+    }
+
+    public OpenAccountPage clickOpenAccount() {
+        WebElement openAccount = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(openAccountButton));
+        openAccount.click();
+        return new OpenAccountPage(driver);
+    }
+
+    public CustomersPage clickCustomers() {
+        WebElement customers = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(customersButton));
+        customers.click();
+        return new CustomersPage(driver);
+    }
+
+    public HomePage clickHomeButton() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.elementToBeClickable(homeButton)).click();
+        return new HomePage(driver);
     }
 }
