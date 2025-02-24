@@ -11,8 +11,8 @@ import java.time.Duration;
 public class CustomerDashboard {
     //fields
     private WebDriver driver;
-    private By transactionsButton = By.xpath("//button[contains(text(),'Transactions')]");
-    private By depositButton = By.xpath("//button[contains(text(),'Deposit')]");
+    private By transactionsButton = By.xpath("/html/body/div/div/div[2]/div/div[3]/button[1]");
+    private By depositButton = By.xpath("/html/body/div/div/div[2]/div/div[3]/button[2]");
     private By withdrawButton = By.xpath("//button[contains(text(),'Withdrawl')]");
 //    private By amountField = By.xpath("//input[@type='number']");
 //    private By getDepositButton = By.xpath("//button[contains(text(),'Deposit')]");

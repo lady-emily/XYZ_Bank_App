@@ -18,6 +18,8 @@ public class WithdrawPage {
     private By successMessage = By.xpath("//span[contains(text(), 'Transaction successful')]");
     private By transactionsButton = By.xpath("//button[contains(text(),'Transactions')]");
     private By errorMessage = By.xpath("//span[contains(text(), 'Transaction Failed')]");
+    private By homeButton2 = By.xpath("/html/body/div/div/div[1]/button[1]");
+
 
     // Constructor
     public WithdrawPage(WebDriver driver) {
@@ -31,14 +33,14 @@ public class WithdrawPage {
 
     // Click withdraw button
     public void clickWithdrawButton() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(withdrawButton));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement button1 = wait.until(ExpectedConditions.elementToBeClickable(withdrawButton));
 
         try {
-            button.click();
+            button1.click();
         } catch (Exception e) {
             System.out.println("Normal click failed, using JavaScript click.");
-            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", button1);
         }    }
 
     // Verify withdrawal success
@@ -58,5 +60,11 @@ public class WithdrawPage {
         WebElement transactionsBtn = wait.until(ExpectedConditions.elementToBeClickable(transactionsButton));
         transactionsBtn.click();
         return new TransactionPage(driver);
+    }
+
+    public CustomerAuthenticationPage clickHomeButton2(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.elementToBeClickable(homeButton2)).click();
+        return new CustomerAuthenticationPage(driver);
     }
 }

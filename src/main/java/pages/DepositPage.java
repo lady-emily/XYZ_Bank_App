@@ -18,6 +18,7 @@ public class DepositPage {
     private By successMessage = By.xpath("//span[contains(text(), 'Deposit Successful')]");
     private By transactionsButton = By.xpath("//button[contains(text(),'Transactions')]");
     private By withdrawButton = By.xpath("//button[contains(text(),'Withdrawl')]");
+    private By homeButton2 = By.xpath("/html/body/div/div/div[1]/button[1]");
 
 
     // Constructor
@@ -60,5 +61,11 @@ public class DepositPage {
         WebElement transactionsBtn = wait.until(ExpectedConditions.elementToBeClickable(transactionsButton));
         transactionsBtn.click();
         return new TransactionPage(driver);
+    }
+
+    public CustomerAuthenticationPage clickHomeButton2(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.elementToBeClickable(homeButton2)).click();
+        return new CustomerAuthenticationPage(driver);
     }
 }
