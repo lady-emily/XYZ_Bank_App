@@ -9,7 +9,7 @@ import static org.testng.Assert.assertTrue;
 
 public class CustomerTests extends BaseTests {
 
-    @Test
+    @Test(priority = 1)
     public void testCustomerAuthentication() throws InterruptedException{
          customerAuthenticationPage = homePage.clickCustomerLogin()
                                     .selectCustomerName("Harry Potter");
@@ -19,41 +19,37 @@ public class CustomerTests extends BaseTests {
             assertTrue(customerAuthenticationPage.isPageLoaded(), "Customer authentication page did not load");
         }
 
-    @Test
+    @Test(priority = 2)
     public void testSuccessfulDeposit() throws InterruptedException {
-        testCustomerAuthentication();
+//        testCustomerAuthentication();
         customerDashboard = customerAuthenticationPage.clickLoginButton();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         depositPage = customerDashboard.clickDeposit();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         depositPage.enterAmount("500");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         depositPage.clickDepositButton();
         Assert.assertTrue(depositPage.isDepositSuccessful(), "Deposit was not successful!");
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         depositPage.clickHomeButton2();
     }
 
-    @Test
+    @Test(priority = 3)
     public void testViewTransactions() throws InterruptedException{
         customerAuthenticationPage = homePage.clickCustomerLogin();
         customerAuthenticationPage.selectCustomerName("Harry Potter");
+        Thread.sleep(1000);
         customerDashboard = customerAuthenticationPage.clickLoginButton();
         transactionPage = customerDashboard.clickTransactions();
-
-        // Wait for 3 seconds before checking the transactions table
         Thread.sleep(2000);
-
         Assert.assertTrue(transactionPage.isTransactionTableDisplayed(), "Transaction table not displayed!");
            transactionPage.clickBackButton();
     }
 
-    @Test
+    @Test(priority = 4)
     public void testSuccessfulWithdrawal() throws InterruptedException {
-        testSuccessfulDeposit();
-        testCustomerAuthentication();
         withdrawPage = customerDashboard.clickWithdraw();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         withdrawPage.enterAmount("200");
         withdrawPage.clickWithdrawButton();
         Thread.sleep(2000);
