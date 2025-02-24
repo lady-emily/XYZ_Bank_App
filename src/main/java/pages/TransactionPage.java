@@ -15,6 +15,7 @@ public class TransactionPage {
     // Locators
     private By transactionsTable = By.xpath("//table[@class='table table-bordered table-striped']");
     private By transactionRows = By.xpath("//table[@class='table table-bordered table-striped']//tbody/tr");
+    private By resetButton = By.xpath("/html/body/div/div/div[2]/div/div[1]/button[2]");
     private By backButton = By.xpath("//button[contains(text(), 'Back')]");
 
     // Constructor
@@ -37,5 +38,11 @@ public class TransactionPage {
     public CustomerDashboard clickBackButton() {
         driver.findElement(backButton).click();
         return new CustomerDashboard(driver);
+    }
+
+    //Click Reset button
+    public TransactionPage clickResetButton(){
+        driver.findElement(resetButton).click();
+        return new TransactionPage(driver);
     }
 }

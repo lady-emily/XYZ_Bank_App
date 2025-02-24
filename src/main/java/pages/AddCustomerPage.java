@@ -47,7 +47,7 @@ public class AddCustomerPage {
      * Adds a customer by filling in the details and clicking the "Add Customer" button.
      * Ensures inputs are valid and handles alert confirmation.
      */
-    public void addCustomer(String firstName, String lastName, String postCode) {
+    public void addCustomer(String firstName, String lastName, String postCode) throws InterruptedException{
         // Validate inputs
         if (!firstName.matches("^[A-Za-z]+$")) {
             throw new IllegalArgumentException("❌ Invalid First Name: Only alphabetic characters are allowed.");
@@ -63,7 +63,9 @@ public class AddCustomerPage {
 
         // Wait for fields to be visible and input values
         wait.until(ExpectedConditions.visibilityOf(firstNameField)).sendKeys(firstName);
+        Thread.sleep(1000);
         wait.until(ExpectedConditions.visibilityOf(lastNameField)).sendKeys(lastName);
+        Thread.sleep(2000);
         wait.until(ExpectedConditions.visibilityOf(postCodeField)).sendKeys(postCode);
 
         // Wait for button to be clickable and click
@@ -73,6 +75,7 @@ public class AddCustomerPage {
         // Handle alert confirmation
         try {
             WebDriverWait alertWait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            Thread.sleep(2000);
             alertWait.until(ExpectedConditions.alertIsPresent()).accept();
             System.out.println("✅ Alert handled successfully.");
         } catch (Exception e) {

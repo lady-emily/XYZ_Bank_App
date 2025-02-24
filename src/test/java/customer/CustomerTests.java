@@ -3,6 +3,7 @@ package customer;
 import base.BaseTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.CustomerDashboard;
 import pages.TransactionPage;
 
 import static org.testng.Assert.assertTrue;
@@ -38,7 +39,7 @@ public class CustomerTests extends BaseTests {
     public void testViewTransactions() throws InterruptedException{
         customerAuthenticationPage = homePage.clickCustomerLogin();
         customerAuthenticationPage.selectCustomerName("Harry Potter");
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         customerDashboard = customerAuthenticationPage.clickLoginButton();
         transactionPage = customerDashboard.clickTransactions();
         Thread.sleep(2000);
@@ -49,13 +50,25 @@ public class CustomerTests extends BaseTests {
     @Test(priority = 4)
     public void testSuccessfulWithdrawal() throws InterruptedException {
         withdrawPage = customerDashboard.clickWithdraw();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         withdrawPage.enterAmount("200");
+        Thread.sleep(2000);
         withdrawPage.clickWithdrawButton();
         Thread.sleep(2000);
         Assert.assertTrue(withdrawPage.isWithdrawalSuccessful(), "Withdrawal failed!");
+        Thread.sleep(2000);
         withdrawPage.clickHomeButton2();
+        Thread.sleep(2000);
         testViewTransactions();
+    }
+
+    @Test(priority = 5)
+    public void testClickResetButton() throws InterruptedException{
+        transactionPage = customerDashboard.clickTransactions();
+        Thread.sleep(2000);
+        transactionPage.clickResetButton();
+        Thread.sleep(2000);
+        transactionPage.clickBackButton();
     }
 
 }

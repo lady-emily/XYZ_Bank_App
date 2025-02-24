@@ -12,6 +12,7 @@ public class CustomersPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
+
     @FindBy(xpath = "//button[contains(text(),'Home')]")
     private WebElement homeButton;
 
@@ -31,7 +32,7 @@ public class CustomersPage {
     /**
      * Deletes a row based on the given Postcode.
      */
-    public void deleteCustomer(String postcode) {
+    public void deleteCustomer(String postcode) throws InterruptedException {
         try {
             // XPath to locate the row containing the given Postcode
             String rowXpath = "//tr[td[contains(text(), '" + postcode + "')]]";
@@ -46,13 +47,12 @@ public class CustomersPage {
                     .until(ExpectedConditions.elementToBeClickable(deleteButton));
 
             // Click the Delete button
+            Thread.sleep(3000);
             deleteButton.click();
 
-            // Handle alert confirmation (if any)
-            wait.until(ExpectedConditions.alertIsPresent()).accept();
-
             System.out.println("✅ Successfully deleted customer with Postcode: " + postcode);
-        } catch (TimeoutException e) {
+        }
+        catch (TimeoutException e) {
             System.out.println("❌ No matching customer found with Postcode: " + postcode);
         }
     }

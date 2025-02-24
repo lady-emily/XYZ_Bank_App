@@ -11,22 +11,28 @@ public class BankManagerTests extends BaseTests {
     private WebDriver driver;
 
     @Test
-    public void testAddCustomer() {
+    public void testAddCustomer() throws InterruptedException {
         BankManagerPage bankManagerPage = homePage.clickBankManagerLogin();
+        Thread.sleep(2000);
         AddCustomerPage addCustomerPage = bankManagerPage.clickAddCustomer();
         addCustomerPage.addCustomer("Emil", "Afia", "9888");
+        Thread.sleep(2000);
         addCustomerPage.addCustomer("Lady", "Britney", "7567");
+        Thread.sleep(2000);
         addCustomerPage.clickHomeButton();
 //        bankManagerPage.clickOpenAccount();
         // bankManagerPage.clickCustomers();
     }
 
     @Test
-    public void testCreateAccount() {
+    public void testCreateAccount() throws InterruptedException {
         BankManagerPage bankManagerPage = homePage.clickBankManagerLogin();
         OpenAccountPage openAccountPage = bankManagerPage.clickOpenAccount();
+        Thread.sleep(2000);
         openAccountPage.createAccount("Emil Afia", "Dollar");
+        Thread.sleep(2000);
         openAccountPage.createAccount("Lady Britney", "Pound");
+        Thread.sleep(2000);
         openAccountPage.clickHomeButton();
 //        bankManagerPage.clickAddCustomer();
 //        bankManagerPage.clickCustomers();
@@ -34,12 +40,13 @@ public class BankManagerTests extends BaseTests {
     }
 
     @Test
-    public void testDeleteCustomer() {
+    public void testDeleteCustomer() throws InterruptedException{
         BankManagerPage bankManagerPage = homePage.clickBankManagerLogin();
         CustomersPage customersPage = bankManagerPage.clickCustomers();
         customersPage.testClass();
+        Thread.sleep(2000);
         customersPage.deleteCustomer("9888");
-////        customersPage.clickHomeButton();
+        customersPage.clickHomeButton();
 ////        bankManagerPage.clickAddCustomer();
 ////        bankManagerPage.clickOpenAccount();
     }

@@ -32,15 +32,18 @@ public class OpenAccountPage {
         PageFactory.initElements(driver, this); // ✅ Initialize PageFactory elements
     }
 
-    public void createAccount(String customerName, String currency) {
+    public void createAccount(String customerName, String currency) throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(customerDropdown));
 
         new Select(driver.findElement(customerDropdown)).selectByVisibleText(customerName);
+        Thread.sleep(2000);
         new Select(driver.findElement(currencyDropdown)).selectByVisibleText(currency);
+        Thread.sleep(2000);
         driver.findElement(processButton).click();
 
         // Handle alert confirmation
+        Thread.sleep(2000);
         driver.switchTo().alert().accept();
     }
 
