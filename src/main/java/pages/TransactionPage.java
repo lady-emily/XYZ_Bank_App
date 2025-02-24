@@ -17,6 +17,8 @@ public class TransactionPage {
     private By transactionRows = By.xpath("//table[@class='table table-bordered table-striped']//tbody/tr");
     private By resetButton = By.xpath("/html/body/div/div/div[2]/div/div[1]/button[2]");
     private By backButton = By.xpath("//button[contains(text(), 'Back')]");
+    private By homeButton2 = By.xpath("/html/body/div/div/div[1]/button[1]");
+
 
     // Constructor
     public TransactionPage(WebDriver driver) {
@@ -44,5 +46,12 @@ public class TransactionPage {
     public TransactionPage clickResetButton(){
         driver.findElement(resetButton).click();
         return new TransactionPage(driver);
+    }
+
+    //Click Home Button
+    public CustomerAuthenticationPage clickHomeButton2() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.elementToBeClickable(homeButton2)).click();
+        return new CustomerAuthenticationPage(driver);
     }
 }

@@ -10,7 +10,7 @@ import static org.testng.Assert.assertTrue;
 
 public class CustomerTests extends BaseTests {
 
-    @Test(priority = 1)
+    @Test( priority = 1)
     public void testCustomerAuthentication() throws InterruptedException{
          customerAuthenticationPage = homePage.clickCustomerLogin()
                                     .selectCustomerName("Harry Potter");
@@ -56,9 +56,8 @@ public class CustomerTests extends BaseTests {
         withdrawPage.clickWithdrawButton();
         Thread.sleep(2000);
         Assert.assertTrue(withdrawPage.isWithdrawalSuccessful(), "Withdrawal failed!");
-        Thread.sleep(2000);
         withdrawPage.clickHomeButton2();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         testViewTransactions();
     }
 
@@ -69,6 +68,7 @@ public class CustomerTests extends BaseTests {
         transactionPage.clickResetButton();
         Thread.sleep(2000);
         transactionPage.clickBackButton();
+        transactionPage.clickHomeButton2();
     }
 
 }

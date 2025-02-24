@@ -1,9 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -45,14 +42,26 @@ public class WithdrawPage {
 
     // Verify withdrawal success
     public boolean isWithdrawalSuccessful() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)).isDisplayed();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Set wait time
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)); // Wait for the success message
+            return true; // If element is found, return true
+        } catch (TimeoutException e) {
+            return false; // If element is not found within timeout, return false
+        }
     }
 
     // Check if transaction failed (e.g., insufficient balance)
     public boolean isTransactionFailed() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).isDisplayed();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Set wait time
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)); // Wait for the success message
+            return true; // If element is found, return true
+        } catch (TimeoutException e) {
+            return false; // If element is not found within timeout, return false
+        }
+
     }
 
     public TransactionPage clickTransactions() {

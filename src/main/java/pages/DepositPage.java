@@ -1,9 +1,6 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -46,8 +43,13 @@ public class DepositPage {
 
     // Verify deposit success
     public boolean isDepositSuccessful() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Increase wait time
-        return wait.until(ExpectedConditions.presenceOfElementLocated(successMessage)).isDisplayed();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Set wait time
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(successMessage)); // Wait for the success message
+            return true; // If element is found, return true
+        } catch (TimeoutException e) {
+            return false; // If element is not found within timeout, return false
+        }
     }
 
     // Click Withdraw Button

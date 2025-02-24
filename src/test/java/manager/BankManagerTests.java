@@ -10,7 +10,7 @@ public class BankManagerTests extends BaseTests {
 
     private WebDriver driver;
 
-    @Test
+    @Test(priority = 1)
     public void testAddCustomer() throws InterruptedException {
         BankManagerPage bankManagerPage = homePage.clickBankManagerLogin();
         Thread.sleep(2000);
@@ -24,7 +24,7 @@ public class BankManagerTests extends BaseTests {
         // bankManagerPage.clickCustomers();
     }
 
-    @Test
+    @Test(priority = 2)
     public void testCreateAccount() throws InterruptedException {
         BankManagerPage bankManagerPage = homePage.clickBankManagerLogin();
         OpenAccountPage openAccountPage = bankManagerPage.clickOpenAccount();
@@ -39,7 +39,7 @@ public class BankManagerTests extends BaseTests {
 
     }
 
-    @Test
+    @Test(priority = 3)
     public void testDeleteCustomer() throws InterruptedException{
         BankManagerPage bankManagerPage = homePage.clickBankManagerLogin();
         CustomersPage customersPage = bankManagerPage.clickCustomers();

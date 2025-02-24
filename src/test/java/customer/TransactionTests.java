@@ -9,10 +9,6 @@ import pages.WithdrawPage;
 
 public class TransactionTests extends BaseTests {
 
-
-
-
-
     @Test
     public void testInsufficientBalance() {
         CustomerDashboard customerDashboard = homePage.clickCustomerLogin()
